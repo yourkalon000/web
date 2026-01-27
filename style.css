@@ -1,0 +1,12 @@
+body {
+  font-family: Arial;
+  background: #111;
+  color: #fff;
+  padding: 20px;
+}
+#stats {
+  background: #222;
+  padding: 15px;
+  border-radius: 6px;
+  width: 250px;
+}
