@@ -1,37 +1,42 @@
-// 🔑 তোমার Adsterra API Key
-const API_KEY = "295b3456fb737cfb8b5b3af0239e84ca";
+let count = 0;
+const totalAds = 4;
 
-// 🛡️ CORS proxy (example)
-const PROXY = "https://corsproxy.io/?";
+const adsLinks = [
+    "https://zmastar.blogspot.com/",
+    "https://judicialimpatientgenerator.com/zcvm0rch?key=93b158ea491b4f11e0adbacd15934c67",
+    "https://bedsidemeasuring.com/rze4wd8aa?key=74d74ecf1cacbe96436ceb718716741c",
+    "https://deemphotousage.com/fz3ifw9n?key=255cb9b54aebe1dca0f89408b47e3fcf"
+];
 
-// 📌 Adsterra Stats API (example endpoint)
-const API_URL = "https://api.adsterra.com/v1/statistics";
 
-// 📅 date range
-const params = "?date_from=2026-01-01&date_to=2026-01-28";
+const popup = document.getElementById("popup");
+const btn = document.getElementById("btn");
+const bar = document.getElementById("bar");
+const notice = document.getElementById("notice");
 
-// Final URL
-const finalURL = PROXY + encodeURIComponent(API_URL + params);
+window.onload = () => {
+    popup.style.display = "flex";
+};
 
-fetch(finalURL, {
-  headers: {
-    "Authorization": "Bearer " + API_KEY,
-    "Accept": "application/json"
-  }
-})
-.then(res => res.json())
-.then(data => {
-  // ⚠️ response structure account-wise different হতে পারে
-  document.getElementById("imp").innerText =
-    data.total?.impressions || 0;
+btn.onclick = () => {
+    if(count < totalAds){
+        window.open(adsLinks[count], "_blank");
+        count++;
 
-  document.getElementById("clicks").innerText =
-    data.total?.clicks || 0;
+        bar.style.width = (count / totalAds * 100) + "%";
+        notice.style.display = "block";
+        notice.textContent = "একটি Ads সম্পূর্ণ হয়েছে";
 
-  document.getElementById("rev").innerText =
-    data.total?.revenue || "0.00";
-})
-.catch(err => {
-  console.error(err);
-  alert("API Error / CORS Blocked");
-});
+        if(count < totalAds){
+            btn.textContent = "Ads " + (count + 1) + " দেখুন";
+        }else{
+            btn.textContent = "ভিডিও দেখুন";
+            btn.style.background = "#4caf50";
+            notice.textContent = "সব Ads সম্পূর্ণ হয়েছে";
+
+            btn.onclick = () => {
+                window.location.href = videoLink; // instant same tab
+            };
+        }
+    }
+};
